@@ -1,6 +1,7 @@
 package org.dgsw.matchmaker.domain.competition.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.dgsw.matchmaker.domain.competition.dto.CompetitionCreateRequestDTO;
 import org.dgsw.matchmaker.domain.competition.dto.CompetitionCreateResponseDTO;
