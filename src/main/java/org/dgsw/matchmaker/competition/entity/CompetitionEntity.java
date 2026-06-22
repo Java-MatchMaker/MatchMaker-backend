@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "competition")
-public class CompetitionCreateEntity {
+public class CompetitionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
