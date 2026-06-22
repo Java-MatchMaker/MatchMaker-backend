@@ -31,7 +31,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         competition.setLocation(dto.getLocation());
         competition.setCompetitionType(dto.getCompetitionType());
 
-        competition.setStatus(CompetitionStatus.IN_PROGRESS);
+        competition.setStatus(CompetitionStatus.BEFORE_START);
 
         return competitionRepository.save(competition);
     }

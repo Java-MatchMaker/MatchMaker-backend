@@ -1,16 +1,18 @@
 package org.dgsw.matchmaker.domain.competition.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import org.dgsw.matchmaker.domain.competition.domain.entity.CompetitionEntity;
 import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionSportType;
+import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionStatus;
 import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionType;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
-@Setter
+@Getter
 @AllArgsConstructor
 public class CompetitionCreateResponseDTO {
+    private Long id;
     private String title;
     private CompetitionSportType sportType;
     private String description;
@@ -22,9 +24,11 @@ public class CompetitionCreateResponseDTO {
     private LocalDate competitionEndDate;
     private String location;
     private CompetitionType competitionType;
+    private CompetitionStatus status;
 
     public static CompetitionCreateResponseDTO to(CompetitionEntity entity) {
         return new CompetitionCreateResponseDTO(
+                entity.getId(),
                 entity.getTitle(),
                 entity.getSportType(),
                 entity.getDescription(),
@@ -35,7 +39,8 @@ public class CompetitionCreateResponseDTO {
                 entity.getCompetitionStartDate(),
                 entity.getCompetitionEndDate(),
                 entity.getLocation(),
-                entity.getCompetitionType()
+                entity.getCompetitionType(),
+                entity.getStatus()
         );
     }
 }
