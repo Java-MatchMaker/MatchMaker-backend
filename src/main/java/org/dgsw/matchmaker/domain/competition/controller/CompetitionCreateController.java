@@ -1,14 +1,14 @@
-package org.dgsw.matchmaker.competition.controller;
+package org.dgsw.matchmaker.domain.competition.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.dgsw.matchmaker.competition.dto.CompetitionCreateRequestDTO;
-import org.dgsw.matchmaker.competition.dto.CompetitionCreateResponseDTO;
-import org.dgsw.matchmaker.competition.entity.CompetitionEntity;
-import org.dgsw.matchmaker.competition.service.CompetitionService;
+import org.dgsw.matchmaker.domain.competition.dto.CompetitionCreateRequestDTO;
+import org.dgsw.matchmaker.domain.competition.dto.CompetitionCreateResponseDTO;
+import org.dgsw.matchmaker.domain.competition.domain.entity.CompetitionEntity;
+import org.dgsw.matchmaker.domain.competition.service.CompetitionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//고침
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")

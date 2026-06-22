@@ -1,4 +1,4 @@
-package org.dgsw.matchmaker.competition.type;
+package org.dgsw.matchmaker.domain.competition.domain.enums;
 
 public enum CompetitionStatus {
     BEFORE_START,

@@ -1,6 +1,6 @@
-package org.dgsw.matchmaker.competition.repository;
+package org.dgsw.matchmaker.domain.competition.repository;
 
-import org.dgsw.matchmaker.competition.entity.CompetitionEntity;
+import org.dgsw.matchmaker.domain.competition.domain.entity.CompetitionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

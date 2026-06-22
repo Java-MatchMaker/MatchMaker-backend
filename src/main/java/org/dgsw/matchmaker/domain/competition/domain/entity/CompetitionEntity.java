@@ -1,11 +1,11 @@
-package org.dgsw.matchmaker.competition.entity;
+package org.dgsw.matchmaker.domain.competition.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.dgsw.matchmaker.competition.type.CompetitionSportType;
-import org.dgsw.matchmaker.competition.type.CompetitionStatus;
-import org.dgsw.matchmaker.competition.type.CompetitionType;
+import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionSportType;
+import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionStatus;
+import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionType;
 
 import java.time.LocalDate;
 

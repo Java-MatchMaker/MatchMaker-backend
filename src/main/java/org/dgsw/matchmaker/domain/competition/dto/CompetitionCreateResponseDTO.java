@@ -1,10 +1,10 @@
-package org.dgsw.matchmaker.competition.dto;
+package org.dgsw.matchmaker.domain.competition.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-import org.dgsw.matchmaker.competition.entity.CompetitionEntity;
-import org.dgsw.matchmaker.competition.type.CompetitionSportType;
-import org.dgsw.matchmaker.competition.type.CompetitionType;
+import org.dgsw.matchmaker.domain.competition.domain.entity.CompetitionEntity;
+import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionSportType;
+import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionType;
 
 import java.time.LocalDate;
 

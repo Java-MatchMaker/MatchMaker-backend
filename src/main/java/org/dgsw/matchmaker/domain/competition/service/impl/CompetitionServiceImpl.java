@@ -1,20 +1,21 @@
-package org.dgsw.matchmaker.competition.service;
+package org.dgsw.matchmaker.domain.competition.service.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.dgsw.matchmaker.competition.dto.CompetitionCreateRequestDTO;
-import org.dgsw.matchmaker.competition.entity.CompetitionEntity;
-import org.dgsw.matchmaker.competition.repository.CompetitionRepository;
-import org.dgsw.matchmaker.competition.type.CompetitionStatus;
+import org.dgsw.matchmaker.domain.competition.domain.entity.CompetitionEntity;
+import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionStatus;
+import org.dgsw.matchmaker.domain.competition.dto.CompetitionCreateRequestDTO;
+import org.dgsw.matchmaker.domain.competition.repository.CompetitionRepository;
+import org.dgsw.matchmaker.domain.competition.service.CompetitionService;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
-public class CompetitionService {
+public class CompetitionServiceImpl implements CompetitionService {
 
     private final CompetitionRepository competitionRepository;
 
+    @Transactional
     public CompetitionEntity createCompetition(CompetitionCreateRequestDTO dto) {
         CompetitionEntity competition = new CompetitionEntity();
 
