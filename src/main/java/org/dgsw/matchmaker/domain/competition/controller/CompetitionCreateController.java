@@ -18,7 +18,7 @@ public class CompetitionCreateController {
 
     @PostMapping("/competitions")
     public ResponseEntity<CompetitionCreateResponseDTO> createCompetition(
-            @Valid @RequestBody CompetitionCreateRequestDTO dto
+            @RequestBody CompetitionCreateRequestDTO dto
     ) {
         CompetitionEntity response = competitionService.createCompetition(dto);
         return ResponseEntity.ok(CompetitionCreateResponseDTO.to(response));
