@@ -1,18 +1,21 @@
 package org.dgsw.matchmaker.competition.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.dgsw.matchmaker.competition.dto.CompetitionCreateDTO;
+import org.dgsw.matchmaker.competition.dto.CompetitionCreateRequestDTO;
 import org.dgsw.matchmaker.competition.entity.CompetitionCreateEntity;
 import org.dgsw.matchmaker.competition.repository.CompetitionRepository;
+import org.dgsw.matchmaker.competition.type.CompetitionStatus;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CompetitionService {
 
     private final CompetitionRepository competitionRepository;
 
-    public CompetitionCreateEntity createCompetition(CompetitionCreateDTO dto) {
+    public CompetitionCreateEntity createCompetition(CompetitionCreateRequestDTO dto) {
         CompetitionCreateEntity competition = new CompetitionCreateEntity();
 
         competition.setTitle(dto.getTitle());
@@ -27,7 +30,7 @@ public class CompetitionService {
         competition.setLocation(dto.getLocation());
         competition.setCompetitionType(dto.getCompetitionType());
 
-        competition.setStatus("RECRUITING");
+        competition.setStatus(CompetitionStatus.IN_PROGRESS);
 
         return competitionRepository.save(competition);
     }

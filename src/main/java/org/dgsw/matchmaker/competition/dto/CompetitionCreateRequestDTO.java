@@ -2,15 +2,16 @@ package org.dgsw.matchmaker.competition.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.dgsw.matchmaker.competition.type.CompetitionSportType;
+import org.dgsw.matchmaker.competition.type.CompetitionType;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class CompetitionCreateDTO {
-
+public class CompetitionCreateRequestDTO {
     private String title;
-    private String sportType;
+    private CompetitionSportType sportType;
     private String description;
     private Integer minParticipants;
     private Integer maxParticipants;
@@ -19,5 +20,5 @@ public class CompetitionCreateDTO {
     private LocalDate competitionStartDate;
     private LocalDate competitionEndDate;
     private String location;
-    private String competitionType;
+    private CompetitionType competitionType;
 }

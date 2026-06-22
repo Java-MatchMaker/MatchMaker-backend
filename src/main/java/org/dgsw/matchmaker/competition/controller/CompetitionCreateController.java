@@ -1,7 +1,8 @@
 package org.dgsw.matchmaker.competition.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.dgsw.matchmaker.competition.dto.CompetitionCreateDTO;
+import org.dgsw.matchmaker.competition.dto.CompetitionCreateRequestDTO;
 import org.dgsw.matchmaker.competition.entity.CompetitionCreateEntity;
 import org.dgsw.matchmaker.competition.service.CompetitionService;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class CompetitionCreateController {
 
     @PostMapping("/competitions")
     public CompetitionCreateEntity createCompetition(
-            @RequestBody CompetitionCreateDTO dto
+            @Valid @RequestBody CompetitionCreateRequestDTO dto
     ) {
         return competitionService.createCompetition(dto);
     }
