@@ -3,7 +3,11 @@ package org.dgsw.matchmaker.participant.service;
 import org.dgsw.matchmaker.participant.dto.request.CreateParticipantRequest;
 import org.dgsw.matchmaker.participant.dto.response.ParticipantResponse;
 
+import java.util.List;
+
 public interface ParticipantService {
 
     ParticipantResponse createParticipant(CreateParticipantRequest request);
+
+    List<ParticipantResponse> getParticipantsByCompetition(Long competitionId);
 }

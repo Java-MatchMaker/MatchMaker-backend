@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ParticipantServiceImpl implements ParticipantService {
@@ -35,5 +37,22 @@ public class ParticipantServiceImpl implements ParticipantService {
 
         Participant savedParticipant = participantRepository.save(participant);
         return ParticipantResponse.from(savedParticipant);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ParticipantResponse> getParticipantsByCompetition(Long competitionId) {
+        if (!competitionRepository.existsById(competitionId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "대회를 찾을 수 없습니다."
+            );
+        }
+
+        return participantRepository
+                .findAllByCompetition_IdOrderByStudentIdAsc(competitionId)
+                .stream()
+                .map(ParticipantResponse::from)
+                .toList();
     }
 }
