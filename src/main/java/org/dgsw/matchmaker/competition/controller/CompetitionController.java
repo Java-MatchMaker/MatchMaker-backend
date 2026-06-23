@@ -8,7 +8,7 @@ import org.dgsw.matchmaker.competition.dto.CompetitionCreateResponse;
 import org.dgsw.matchmaker.competition.service.CompetitionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-@Slf4j
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/competitions")
@@ -27,7 +27,7 @@ public class CompetitionController {
     public ResponseEntity<CompetitionCreateResponse> updateCompetition(
             @Valid @RequestBody CompetitionCreateRequest request
     ) {
-        log.info("updateCompetition id={}", request.getId());
+
         return ResponseEntity.ok(competitionService.updateCompetition(request));
     }
 }
