@@ -32,7 +32,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         }
 
         Competition competition = optional.get();
-        competition.setTitle(request.getTitle());
+        competition.applyUpdate(request);
 
         return CompetitionCreateResponse.from(competitionRepository.save(competition));
     }
