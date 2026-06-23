@@ -3,6 +3,7 @@ package org.dgsw.matchmaker.competition.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.dgsw.matchmaker.competition.dto.CompetitionCreateRequest;
 import org.dgsw.matchmaker.competition.enums.CompetitionSportType;
 import org.dgsw.matchmaker.competition.enums.CompetitionStatus;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "competition")
 public class Competition {

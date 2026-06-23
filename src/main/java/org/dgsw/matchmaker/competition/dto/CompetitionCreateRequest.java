@@ -13,6 +13,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class CompetitionCreateRequest {
+    private Long id;
+    @NotBlank(message = "Name is mandatory")
 
     @NotBlank(message = "대회명은 필수입니다.")
     private String title;
