@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.dgsw.matchmaker.competition.entity.Competition;
 
 @Getter
 @Setter
@@ -16,5 +15,5 @@ public class CreateParticipantRequest {
     private Integer studentId;
 
     @NotNull
-    private Competition competition;
+    private Long competitionId;
 }
