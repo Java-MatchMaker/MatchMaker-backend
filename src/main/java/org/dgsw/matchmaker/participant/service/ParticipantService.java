@@ -9,5 +9,7 @@ public interface ParticipantService {
 
     ParticipantResponse createParticipant(CreateParticipantRequest request);
 
+    ParticipantResponse getParticipant(Long participantId);
+
     List<ParticipantResponse> getParticipantsByCompetition(Long competitionId);
 }

@@ -41,6 +41,18 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     @Transactional(readOnly = true)
+    public ParticipantResponse getParticipant(Long participantId) {
+        Participant participant = participantRepository.findById(participantId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "참가자를 찾을 수 없습니다."
+                ));
+
+        return ParticipantResponse.from(participant);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<ParticipantResponse> getParticipantsByCompetition(Long competitionId) {
         if (!competitionRepository.existsById(competitionId)) {
             throw new ResponseStatusException(
