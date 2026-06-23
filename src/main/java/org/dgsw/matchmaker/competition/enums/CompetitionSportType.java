@@ -1,4 +1,4 @@
-package org.dgsw.matchmaker.domain.competition.domain.enums;
+package org.dgsw.matchmaker.competition.enums;
 
 public enum CompetitionSportType {
     BADMINTON,

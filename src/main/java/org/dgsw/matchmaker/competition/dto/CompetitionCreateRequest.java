@@ -1,18 +1,18 @@
-package org.dgsw.matchmaker.domain.competition.dto;
+package org.dgsw.matchmaker.competition.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionSportType;
-import org.dgsw.matchmaker.domain.competition.domain.enums.CompetitionType;
+import org.dgsw.matchmaker.competition.enums.CompetitionSportType;
+import org.dgsw.matchmaker.competition.enums.CompetitionType;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class CompetitionCreateRequestDTO {
+public class CompetitionCreateRequest {
 
     @NotBlank(message = "대회명은 필수입니다.")
     private String title;
