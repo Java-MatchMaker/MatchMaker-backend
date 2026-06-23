@@ -3,7 +3,9 @@ package org.dgsw.matchmaker.bracket.service;
 import lombok.RequiredArgsConstructor;
 import org.dgsw.matchmaker.bracket.dto.BracketCreateRequest;
 import org.dgsw.matchmaker.bracket.dto.BracketResponse;
+import org.dgsw.matchmaker.bracket.dto.BracketTournamentMatchPatchRequest;
 import org.dgsw.matchmaker.bracket.dto.BracketUpdateRequest;
+import org.dgsw.matchmaker.bracket.dto.TournamentMatchResponse;
 import org.dgsw.matchmaker.bracket.entity.Bracket;
 import org.dgsw.matchmaker.bracket.entity.LeagueMatch;
 import org.dgsw.matchmaker.bracket.entity.TournamentMatch;
@@ -87,6 +89,21 @@ public class BracketServiceImpl implements BracketService {
 
     @Override
     @Transactional
+    public TournamentMatchResponse patchTournamentMatch(
+            Long matchId,
+            BracketTournamentMatchPatchRequest request
+    ) {
+        TournamentMatch match = tournamentMatchRepository.findById(matchId)
+                .orElseThrow(() -> new ResourceNotFoundException("토너먼트 경기를 찾을 수 없습니다. id=" + matchId));
+
+        Participant winner = findWinnerParticipant(match, request.getWinnerParticipantId());
+        match.recordWinner(winner);
+
+        return TournamentMatchResponse.from(match);
+    }
+
+    @Override
+    @Transactional
     public void deleteBracket(Long id) {
         Bracket bracket = findBracket(id);
         deleteMatches(bracket.getId());
@@ -149,5 +166,19 @@ public class BracketServiceImpl implements BracketService {
     private void deleteMatches(Long bracketId) {
         leagueMatchRepository.deleteAllByBracket_Id(bracketId);
         tournamentMatchRepository.deleteAllByBracket_Id(bracketId);
+    }
+
+    private Participant findWinnerParticipant(TournamentMatch match, Long winnerParticipantId) {
+        Participant homeParticipant = match.getHomeParticipant();
+        Participant awayParticipant = match.getAwayParticipant();
+
+        if (homeParticipant != null && homeParticipant.getId().equals(winnerParticipantId)) {
+            return homeParticipant;
+        }
+        if (awayParticipant != null && awayParticipant.getId().equals(winnerParticipantId)) {
+            return awayParticipant;
+        }
+
+        throw new IllegalArgumentException("승자는 해당 경기의 참가자여야 합니다.");
     }
 }

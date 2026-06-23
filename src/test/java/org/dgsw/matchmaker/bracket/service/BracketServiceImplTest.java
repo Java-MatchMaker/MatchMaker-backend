@@ -2,7 +2,9 @@ package org.dgsw.matchmaker.bracket.service;
 
 import org.dgsw.matchmaker.bracket.dto.BracketCreateRequest;
 import org.dgsw.matchmaker.bracket.dto.BracketResponse;
+import org.dgsw.matchmaker.bracket.dto.BracketTournamentMatchPatchRequest;
 import org.dgsw.matchmaker.bracket.dto.BracketUpdateRequest;
+import org.dgsw.matchmaker.bracket.dto.TournamentMatchResponse;
 import org.dgsw.matchmaker.bracket.enums.BracketType;
 import org.dgsw.matchmaker.bracket.enums.TournamentRound;
 import org.dgsw.matchmaker.bracket.repository.BracketRepository;
@@ -24,6 +26,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -128,6 +131,46 @@ class BracketServiceImplTest {
         assertEquals(BracketType.LEAGUE, updated.getBracketType());
         assertEquals(2, updated.getParticipantCount());
         assertEquals(1, updated.getLeagueMatches().size());
+    }
+
+    @Test
+    void patchTournamentMatchRecordsWinnerOnly() {
+        Long competitionId = createCompetition(CompetitionType.TOURNAMENT).getId();
+        saveParticipants(competitionId, 2);
+
+        BracketCreateRequest request = new BracketCreateRequest();
+        request.setCompetitionId(competitionId);
+        BracketResponse bracket = bracketService.createBracket(request);
+
+        Long matchId = bracket.getTournamentMatches().getFirst().getId();
+        Long winnerId = bracket.getTournamentMatches().getFirst().getHomeParticipant().getId();
+
+        BracketTournamentMatchPatchRequest patchRequest = new BracketTournamentMatchPatchRequest();
+        patchRequest.setWinnerParticipantId(winnerId);
+
+        TournamentMatchResponse patched = bracketService.patchTournamentMatch(matchId, patchRequest);
+
+        assertEquals(matchId, patched.getId());
+        assertEquals(winnerId, patched.getWinner().getId());
+    }
+
+    @Test
+    void patchTournamentMatchThrowsWhenWinnerIsNotInMatch() {
+        Long competitionId = createCompetition(CompetitionType.TOURNAMENT).getId();
+        saveParticipants(competitionId, 4);
+
+        BracketCreateRequest request = new BracketCreateRequest();
+        request.setCompetitionId(competitionId);
+        BracketResponse bracket = bracketService.createBracket(request);
+
+        Long matchId = bracket.getTournamentMatches().getFirst().getId();
+        Long outsiderId = bracket.getTournamentMatches().get(1).getHomeParticipant().getId();
+
+        BracketTournamentMatchPatchRequest patchRequest = new BracketTournamentMatchPatchRequest();
+        patchRequest.setWinnerParticipantId(outsiderId);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                bracketService.patchTournamentMatch(matchId, patchRequest));
     }
 
     @Test

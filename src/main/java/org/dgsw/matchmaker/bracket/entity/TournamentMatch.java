@@ -64,4 +64,8 @@ public class TournamentMatch {
     public void assignAwayParticipant(Participant participant) {
         this.awayParticipant = participant;
     }
+
+    public void recordWinner(Participant winner) {
+        this.winner = winner;
+    }
 }
