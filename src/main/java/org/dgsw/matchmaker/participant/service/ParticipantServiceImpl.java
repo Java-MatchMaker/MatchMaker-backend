@@ -67,4 +67,30 @@ public class ParticipantServiceImpl implements ParticipantService {
                 .map(ParticipantResponse::from)
                 .toList();
     }
+
+    @Override
+    @Transactional
+    public void deleteParticipant(Long competitionId, Long participantId) {
+        if (!competitionRepository.existsById(competitionId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "대회를 찾을 수 없습니다."
+            );
+        }
+
+        Participant participant = participantRepository.findById(participantId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "참가자를 찾을 수 없습니다."
+                ));
+
+        if (!participant.getCompetition().getId().equals(competitionId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "참가자를 찾을 수 없습니다."
+            );
+        }
+
+        participantRepository.delete(participant);
+    }
 }

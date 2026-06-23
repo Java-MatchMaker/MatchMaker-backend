@@ -12,4 +12,6 @@ public interface ParticipantService {
     ParticipantResponse getParticipant(Long participantId);
 
     List<ParticipantResponse> getParticipantsByCompetition(Long competitionId);
+
+    void deleteParticipant(Long competitionId, Long participantId);
 }
