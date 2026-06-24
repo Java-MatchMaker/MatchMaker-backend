@@ -4,9 +4,10 @@ import org.dgsw.matchmaker.participant.entity.Participant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
+@Repository
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
+    List<Participant> findAllByCompetition_IdOrderByStudentIdAsc(Long competitionId);
 
     List<Participant> findAllByCompetition_IdOrderByIdAsc(Long competitionId);
 

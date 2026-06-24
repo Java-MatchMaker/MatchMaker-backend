@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ParticipantServiceImpl implements ParticipantService {
@@ -74,5 +76,60 @@ public class ParticipantServiceImpl implements ParticipantService {
                             "같은 대회에 이미 등록된 학번입니다."
                     );
                 });
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ParticipantResponse getParticipant(Long participantId) {
+        Participant participant = participantRepository.findById(participantId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "참가자를 찾을 수 없습니다."
+                ));
+
+        return ParticipantResponse.from(participant);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ParticipantResponse> getParticipantsByCompetition(Long competitionId) {
+        if (!competitionRepository.existsById(competitionId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "대회를 찾을 수 없습니다."
+            );
+        }
+
+        return participantRepository
+                .findAllByCompetition_IdOrderByStudentIdAsc(competitionId)
+                .stream()
+                .map(ParticipantResponse::from)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public void deleteParticipant(Long competitionId, Long participantId) {
+        if (!competitionRepository.existsById(competitionId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "대회를 찾을 수 없습니다."
+            );
+        }
+
+        Participant participant = participantRepository.findById(participantId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "참가자를 찾을 수 없습니다."
+                ));
+
+        if (!participant.getCompetition().getId().equals(competitionId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "참가자를 찾을 수 없습니다."
+            );
+        }
+
+        participantRepository.delete(participant);
     }
 }
