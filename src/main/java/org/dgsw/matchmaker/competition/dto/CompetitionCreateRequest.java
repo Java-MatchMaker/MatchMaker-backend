@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class CompetitionCreateRequest {
-    @NotNull(message = "대회 ID는 필수입니다.")
+
     private Long id;
 
     @NotBlank(message = "대회명은 필수입니다.")

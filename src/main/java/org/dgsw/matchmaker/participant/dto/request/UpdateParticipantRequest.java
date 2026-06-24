@@ -7,14 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateParticipantRequest {
+public class UpdateParticipantRequest {
 
     @NotBlank(message = "이름은 필수입니다.")
     private String name;
 
     @NotNull(message = "학번은 필수입니다.")
     private Integer studentId;
-
-    @NotNull(message = "대회 ID는 필수입니다.")
-    private Long competitionId;
 }
