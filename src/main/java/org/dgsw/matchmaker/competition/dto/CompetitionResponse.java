@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class CompetitionCreateResponse {
+public class CompetitionResponse {
 
     private Long id;
     private String title;
@@ -27,9 +27,8 @@ public class CompetitionCreateResponse {
     private CompetitionType competitionType;
     private CompetitionStatus status;
 
-
-    public static CompetitionCreateResponse from(Competition competition) {
-        return new CompetitionCreateResponse(
+    public static CompetitionResponse from(Competition competition) {
+        return new CompetitionResponse(
                 competition.getId(),
                 competition.getTitle(),
                 competition.getSportType(),

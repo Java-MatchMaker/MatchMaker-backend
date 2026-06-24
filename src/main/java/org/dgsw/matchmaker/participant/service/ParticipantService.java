@@ -1,6 +1,7 @@
 package org.dgsw.matchmaker.participant.service;
 
 import org.dgsw.matchmaker.participant.dto.request.CreateParticipantRequest;
+import org.dgsw.matchmaker.participant.dto.request.UpdateParticipantRequest;
 import org.dgsw.matchmaker.participant.dto.response.ParticipantResponse;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface ParticipantService {
     List<ParticipantResponse> getParticipantsByCompetition(Long competitionId);
 
     void deleteParticipant(Long competitionId, Long participantId);
+    ParticipantResponse updateParticipant(Long id, UpdateParticipantRequest request);
 }

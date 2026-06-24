@@ -3,6 +3,7 @@ package org.dgsw.matchmaker.competition.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.dgsw.matchmaker.competition.dto.CompetitionCreateRequest;
 import org.dgsw.matchmaker.competition.enums.CompetitionSportType;
 import org.dgsw.matchmaker.competition.enums.CompetitionStatus;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "competition")
 public class Competition {
@@ -61,18 +63,22 @@ public class Competition {
 
     public static Competition createFrom(CompetitionCreateRequest request) {
         Competition competition = new Competition();
-        competition.title = request.getTitle();
-        competition.sportType = request.getSportType();
-        competition.description = request.getDescription();
-        competition.minParticipants = request.getMinParticipants();
-        competition.maxParticipants = request.getMaxParticipants();
-        competition.recruitStartDate = request.getRecruitStartDate();
-        competition.recruitEndDate = request.getRecruitEndDate();
-        competition.competitionStartDate = request.getCompetitionStartDate();
-        competition.competitionEndDate = request.getCompetitionEndDate();
-        competition.location = request.getLocation();
-        competition.competitionType = request.getCompetitionType();
+        competition.applyUpdate(request);
         competition.status = CompetitionStatus.BEFORE_START;
         return competition;
+    }
+
+    public void applyUpdate(CompetitionCreateRequest request) {
+        this.title = request.getTitle();
+        this.sportType = request.getSportType();
+        this.description = request.getDescription();
+        this.minParticipants = request.getMinParticipants();
+        this.maxParticipants = request.getMaxParticipants();
+        this.recruitStartDate = request.getRecruitStartDate();
+        this.recruitEndDate = request.getRecruitEndDate();
+        this.competitionStartDate = request.getCompetitionStartDate();
+        this.competitionEndDate = request.getCompetitionEndDate();
+        this.location = request.getLocation();
+        this.competitionType = request.getCompetitionType();
     }
 }
