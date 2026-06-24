@@ -55,6 +55,8 @@ public class ParticipantController {
     ) {
         participantService.deleteParticipant(competitionId, participantId);
         return ResponseEntity.ok("참가자가 삭제되었습니다.");
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ParticipantResponse> updateParticipant(
             @PathVariable Long id,
