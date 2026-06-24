@@ -49,6 +49,22 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     @Transactional
+    public CompetitionCreateResponse updateCompetition(CompetitionCreateRequest request) {
+        if (request.getId() == null) {
+            throw new IllegalArgumentException("대회 ID는 필수입니다.");
+        }
+
+        Competition competition = competitionRepository.findById(request.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "대회를 찾을 수 없습니다. id=" + request.getId()
+                ));
+
+        competition.applyUpdate(request);
+        return CompetitionCreateResponse.from(competitionRepository.save(competition));
+    }
+
+    @Override
+    @Transactional
     public void deleteCompetition(Long id) {
         Competition competition = findCompetition(id);
         leagueMatchRepository.deleteAllByBracket_Competition_Id(id);

@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @Setter
 public class CompetitionCreateRequest {
 
+    private Long id;
+
     @NotBlank(message = "대회명은 필수입니다.")
     private String title;
 

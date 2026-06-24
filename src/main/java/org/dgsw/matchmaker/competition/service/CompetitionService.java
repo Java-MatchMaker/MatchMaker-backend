@@ -14,5 +14,7 @@ public interface CompetitionService {
 
     CompetitionResponse getCompetition(Long id);
 
+    CompetitionCreateResponse updateCompetition(CompetitionCreateRequest request);
+
     void deleteCompetition(Long id);
 }
