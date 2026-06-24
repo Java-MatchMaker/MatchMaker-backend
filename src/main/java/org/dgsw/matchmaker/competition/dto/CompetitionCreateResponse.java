@@ -27,6 +27,7 @@ public class CompetitionCreateResponse {
     private CompetitionType competitionType;
     private CompetitionStatus status;
 
+
     public static CompetitionCreateResponse from(Competition competition) {
         return new CompetitionCreateResponse(
                 competition.getId(),

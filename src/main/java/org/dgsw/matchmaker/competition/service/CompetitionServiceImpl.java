@@ -8,6 +8,8 @@ import org.dgsw.matchmaker.competition.repository.CompetitionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CompetitionServiceImpl implements CompetitionService {
@@ -20,4 +22,19 @@ public class CompetitionServiceImpl implements CompetitionService {
         Competition competition = Competition.createFrom(request);
         return CompetitionCreateResponse.from(competitionRepository.save(competition));
     }
+
+    @Override
+    @Transactional
+    public CompetitionCreateResponse updateCompetition(CompetitionCreateRequest request) {
+        Optional<Competition> optional = competitionRepository.findById(request.getId());
+        if (optional.isEmpty()) {
+            throw new IllegalArgumentException("Competition not found: " + request.getId());
+        }
+
+        Competition competition = optional.get();
+        competition.applyUpdate(request);
+
+        return CompetitionCreateResponse.from(competitionRepository.save(competition));
+    }
+
 }
